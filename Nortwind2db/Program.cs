@@ -25,21 +25,22 @@ namespace Nortwind2db
             Console.WriteLine("--------------------");
             //MoveProductsToAnotherCategory();
             Console.WriteLine("--------------------");
-            AddListOfProducts(new List<Product>()
-            {
-                new Product()
-                {
-                    Category = new Category()
-                    {
-                        CategoryName  = "Category"
-                    },
-                    Supplier = new Supplier()
-                    {
-                        CompanyName = "John Doe"
-                    },
-                    ProductName = "iProduct"
-                }
-            });
+            //AddListOfProducts(new List<Product>()
+            //{
+            //    new Product()
+            //    {
+            //        Category = new Category()
+            //        {
+            //            CategoryName  = "Category"
+            //        },
+            //        Supplier = new Supplier()
+            //        {
+            //            CompanyName = "John Doe"
+            //        },
+            //        ProductName = "iProduct"
+            //    }
+            //});
+            ReplaceProduct();
             Console.ReadKey();
         }
 
@@ -195,8 +196,8 @@ namespace Nortwind2db
                     .Where(x => x.Order.ShippedDate == null)
                     .Update(x => new OrderDetail()
                     {
-                        ProductID = db.Products.FirstOrDefault(p => p.CategoryID == x.Product.CategoryID && p.ProductID != x.ProductID) != null 
-                        ? db.Products.FirstOrDefault(p => p.CategoryID == x.Product.CategoryID && p.ProductID != x.ProductID).ProductID
+                        ProductID = db.Products.FirstOrDefault(p => p.CategoryID == x.Product.CategoryID && p.ProductID > x.ProductID) != null 
+                        ? db.Products.FirstOrDefault(p => p.CategoryID == x.Product.CategoryID && p.ProductID > x.ProductID).ProductID
                         : db.Products.FirstOrDefault(p => p.CategoryID == x.Product.CategoryID).ProductID
                     });
             }
